@@ -25,15 +25,16 @@ public class UserDatabaseService
             Username = userViewModel.Username,
             Password = userViewModel.Password,
             Birthday = userViewModel.Birthday,
+            Email = userViewModel.Email
         };
 
         await _repository.Add(user);
         return true;
     }
 
-    public bool HasUser(string name)
+    public bool HasUser(string email)
     {
-        UserModel? user = _repository.GetAll().FirstOrDefault(x => x.Username == name);
+        UserModel? user = _repository.GetAll().FirstOrDefault(x => x.Email == email);
 
         return user != null;
     }

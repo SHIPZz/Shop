@@ -12,8 +12,8 @@ using Shop.Data;
 namespace Shop.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20240313015805_UserMigration")]
-    partial class UserMigration
+    [Migration("20240313150221_UserDatabaseMigration")]
+    partial class UserDatabaseMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,10 @@ namespace Shop.Migrations
 
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()

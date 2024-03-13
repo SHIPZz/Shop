@@ -9,22 +9,24 @@
 
 <div class="d-flex justify-content-center">
     <div>
-        <form asp-controller="Authorization" asp-action="Authorize" method="post"> 
-            <div class="input-group mb-3">
-                <span class="input-group-text" style="width: 80px;">Имя:</span>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName" asp-for="Username" placeholder="Username...">
-                    <label for="floatingName">Username</label>
-                </div>
+        <form asp-controller="Authorization" asp-action="Authorize" method="post" > 
+            <div class="mb-3">
+                <label for="emailInput" class="form-label">Email:</label>
+                <input type="email" class="form-control" id="emailInput" asp-for="Email" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
-            <div class="input-group mb-3"> 
-                <span class="input-group-text" style="width: 80px;">Пароль:</span>
-                <div class="form-floating">
-                    <input type="password" class="form-control" id="floatingPassword" asp-for="Password" placeholder="Password...">
-                    <label for="floatingPassword">Password</label>
-                </div>
+            
+            <div class="mb-3">
+                <label for="passwordInput" class="form-label">Пароль:</label>
+                <input type="password" class="form-control" asp-for="Password" id="passwordInput">
             </div>
-            <button type="submit" class="btn btn-primary btn-lg d-block mx-auto w-65">Войти</button> 
+            
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="checkOut">
+                <label class="form-check-label"  for="checkOut">Запомнить меня</label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>

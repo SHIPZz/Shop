@@ -53,6 +53,17 @@ else if (ViewBag.IsRegistrationSucceded != null && ViewBag.IsRegistrationSuccede
                 </div>
             </div>
             <div class="input-group mb-3">
+                <span class="input-group-text" style="width: 150px;">Email:</span>
+                <div class="form-floating">
+                    <input type="email" class="form-control"
+                           id="floatingEmail" asp-for="Email"
+                           placeholder="Password..."
+                           value="@Model.Email">
+
+                    <label for="floatingEmail">Email</label>
+                </div>
+            </div>
+            <div class="input-group mb-3">
                 <span class="input-group-text" style="width: 150px;">Дата рождения:</span>
                 <div class="form-floating">
                     <input type="date" class="form-control" id="floatingDateOfBirth" asp-for="Birthday"

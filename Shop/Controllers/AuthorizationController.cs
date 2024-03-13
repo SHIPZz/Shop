@@ -21,7 +21,7 @@ public class AuthorizationController : Controller
     [HttpPost]
     public IActionResult Authorize(UserViewModel userViewModel)
     {
-        var hasUser = _userDatabaseService.HasUser(userViewModel.Password);
+        var hasUser = _userDatabaseService.HasUser(userViewModel.Email);
 
         if (!hasUser)
         {
@@ -30,6 +30,6 @@ public class AuthorizationController : Controller
         }
 
         ViewBag.HasUser = true;
-        return View();
+        return RedirectToAction("Device", "Device");
     }
 }
