@@ -7,6 +7,8 @@
             <div class="image-container">
                 <img src="@Url.Content($"~/Images/Devices/{@Model[i].ImagePath}")" class="rounded mx-auto d-block" alt="iphone" width="150" height="300">
                 <p class="text-center">@Model[i].Name</p>
+                <p class="text-center">@Model[i].Price</p>
+                <p class="text-center">@Model[i].Count</p>
             </div>
         </div>
     }
