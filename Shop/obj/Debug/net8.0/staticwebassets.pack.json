@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\Shop.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\mrken\\Desktop\\Projects\\Shop\\Shop\\wwwroot\\Images\\Devices\\iphone 11.png",
+      "PackagePath": "staticwebassets\\Images\\Devices\\iphone 11.png"
+    },
+    {
       "Id": "C:\\Users\\mrken\\Desktop\\Projects\\Shop\\Shop\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

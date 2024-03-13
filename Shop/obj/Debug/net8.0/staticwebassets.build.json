@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "yga6Vu3EoO4a+4OE/vNEpLlNHyUoL6aElu9X+06WRUM=",
+  "Hash": "W9tdqEHo2zthWcI/hKc5XWucvRTXbgHsGdqL/EFjcBY=",
   "Source": "Shop",
   "BasePath": "_content/Shop",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\mrken\\Desktop\\Projects\\Shop\\Shop\\wwwroot\\Images\\Devices\\iphone 11.png",
+      "SourceId": "Shop",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\mrken\\Desktop\\Projects\\Shop\\Shop\\wwwroot\\",
+      "BasePath": "_content/Shop",
+      "RelativePath": "Images/Devices/iphone 11.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Images\\Devices\\iphone 11.png"
     },
     {
       "Identity": "C:\\Users\\mrken\\Desktop\\Projects\\Shop\\Shop\\wwwroot\\js\\site.js",

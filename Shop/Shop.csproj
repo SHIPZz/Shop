@@ -15,4 +15,8 @@
       </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\Images\Devices\iphone 11.png" />
+    </ItemGroup>
+
 </Project>

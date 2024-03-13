@@ -10,8 +10,14 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
+
+builder.Services.AddDbContext<DeviceDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
+
+builder.Services.AddScoped<IRepository<DeviceModel>, DeviceRepository>();
 builder.Services.AddScoped<IRepository<UserModel>, UserRepository>();
 builder.Services.AddScoped<UserDatabaseService>();
+builder.Services.AddScoped<DeviceDatabaseService>();
 
 
 var app = builder.Build();
