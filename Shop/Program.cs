@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
+using Shop.Data.Device;
+using Shop.Data.OrderedDevice;
+using Shop.Data.User;
 using Shop.Models;
 using Shop.Services;
 
@@ -14,10 +17,22 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 builder.Services.AddDbContext<DeviceDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
 
+builder.Services.AddDbContext<OrderedDeviceDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
+
 builder.Services.AddScoped<IRepository<DeviceModel>, DeviceRepository>();
+builder.Services.AddScoped<IRepository<OrderedDeviceModel>, OrderedDeviceRepository>();
 builder.Services.AddScoped<IRepository<UserModel>, UserRepository>();
 builder.Services.AddScoped<UserDatabaseService>();
 builder.Services.AddScoped<DeviceDatabaseService>();
+builder.Services.AddSingleton<OrderedDeviceDatabaseService>(serviceProvider =>
+{
+    var scopedFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
+    using var scope = scopedFactory.CreateScope();
+    var scopedRepository = scope.ServiceProvider.GetRequiredService<IRepository<OrderedDeviceModel>>();
+
+    return new OrderedDeviceDatabaseService(scopedRepository);
+});
 
 
 var app = builder.Build();

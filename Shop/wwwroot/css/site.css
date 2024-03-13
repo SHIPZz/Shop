@@ -36,4 +36,15 @@ body {
 .image-container {
   text-align: center;
 }
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
 
+.image-container img {
+  transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+  transform: scale(0.8);
+}

@@ -1,6 +1,6 @@
 using Shop.Models;
 
-namespace Shop.Data;
+namespace Shop.Data.User;
 
 public class UserRepository : IRepository<UserModel>
 {
