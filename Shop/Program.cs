@@ -1,41 +1,32 @@
 using Microsoft.EntityFrameworkCore;
 using Shop.Data;
-using Shop.Data.Device;
-using Shop.Data.OrderedDevice;
-using Shop.Data.User;
-using Shop.Models;
+using Shop.Profiles;
 using Shop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
+
+
 builder.Services.AddControllersWithViews();
-
-builder.Services.AddDbContext<UserDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
 
-builder.Services.AddDbContext<DeviceDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
-
-builder.Services.AddDbContext<OrderedDeviceDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
-
-builder.Services.AddScoped<IRepository<DeviceModel>, DeviceRepository>();
-builder.Services.AddScoped<IRepository<OrderedDeviceModel>, OrderedDeviceRepository>();
-builder.Services.AddScoped<IRepository<UserModel>, UserRepository>();
+builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 builder.Services.AddScoped<UserDatabaseService>();
 builder.Services.AddScoped<DeviceDatabaseService>();
+builder.Services.AddScoped<UnitOfWork>();
+
 builder.Services.AddSingleton<OrderedDeviceDatabaseService>(serviceProvider =>
 {
     var scopedFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
     using var scope = scopedFactory.CreateScope();
-    var scopedRepository = scope.ServiceProvider.GetRequiredService<IRepository<OrderedDeviceModel>>();
+    var unitOfWork = scope.ServiceProvider.GetRequiredService<UnitOfWork>();
 
-    return new OrderedDeviceDatabaseService(scopedRepository);
+    return new OrderedDeviceDatabaseService(unitOfWork);
 });
 
-
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -54,6 +45,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Registration}/{action=Register}/{id?}");
+    pattern: "{controller=Device}/{action=Device}/{id?}");
 
 app.Run();

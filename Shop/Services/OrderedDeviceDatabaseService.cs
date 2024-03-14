@@ -5,17 +5,17 @@ namespace Shop.Services;
 
 public class OrderedDeviceDatabaseService
 {
-    private readonly IRepository<OrderedDeviceModel> _repository;
+    private readonly UnitOfWork _unitOfWork;
 
     public OrderedDeviceModel OrderedDevice { get; set; }
 
-    public OrderedDeviceDatabaseService(IRepository<OrderedDeviceModel> repository)
+    public OrderedDeviceDatabaseService(UnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public IQueryable<OrderedDeviceModel> GetAll()
     {
-        return _repository.GetAll();
+        return _unitOfWork.Resolve<BaseRepository<OrderedDeviceModel>, OrderedDeviceModel>().GetAll();
     }
 }

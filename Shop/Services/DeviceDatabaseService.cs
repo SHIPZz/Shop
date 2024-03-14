@@ -5,15 +5,15 @@ namespace Shop.Services;
 
 public class DeviceDatabaseService
 {
-    private readonly IRepository<DeviceModel> _repository;
+    private readonly UnitOfWork _unitOfWork;
 
-    public DeviceDatabaseService(IRepository<DeviceModel> repository)
+    public DeviceDatabaseService(UnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public IQueryable<DeviceModel> GetAll()
     {
-        return _repository.GetAll();
+        return _unitOfWork.Resolve<BaseRepository<DeviceModel>, DeviceModel>().GetAll();
     }
 }

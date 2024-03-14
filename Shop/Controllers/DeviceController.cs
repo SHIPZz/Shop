@@ -1,5 +1,5 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Extensions;
 using Shop.Models;
 using Shop.Services;
 
@@ -9,18 +9,20 @@ public class DeviceController : Controller
 {
     private readonly DeviceDatabaseService _deviceDatabaseService;
     private readonly OrderedDeviceDatabaseService _orderedDeviceDatabaseService;
+    private readonly IMapper _mapper;
 
-    public DeviceController(DeviceDatabaseService deviceDatabaseService, OrderedDeviceDatabaseService orderedDeviceDatabaseService)
+    public DeviceController(DeviceDatabaseService deviceDatabaseService, OrderedDeviceDatabaseService orderedDeviceDatabaseService,  IMapper mapper)
     {
-        _orderedDeviceDatabaseService = orderedDeviceDatabaseService;
+        _mapper = mapper;
         _deviceDatabaseService = deviceDatabaseService;
+        _orderedDeviceDatabaseService = orderedDeviceDatabaseService;
     }
 
     [HttpPost]
     public IActionResult Device(string selectedDevice)
     {
-        DeviceModel target = _deviceDatabaseService.GetAll().FirstOrDefault(x => x.Name == selectedDevice);
-        _orderedDeviceDatabaseService.OrderedDevice = target.ToOrdered();
+        DeviceModel deviceModel = _deviceDatabaseService.GetAll().FirstOrDefault(x => x.Name == selectedDevice);
+        _orderedDeviceDatabaseService.OrderedDevice = _mapper.Map<OrderedDeviceModel>(deviceModel);
         return RedirectToAction("OrderDevice", "OrderedDevice");
     }
     

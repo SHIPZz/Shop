@@ -5,11 +5,11 @@ namespace Shop.Services;
 
 public class UserDatabaseService
 {
-    private readonly IRepository<UserModel> _repository;
+    private readonly UnitOfWork _unitOfWork;
 
-    public UserDatabaseService(IRepository<UserModel> repository)
+    public UserDatabaseService(UnitOfWork unitOfWork)
     {
-        _repository = repository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<bool> TryCreate(UserViewModel userViewModel)
@@ -28,13 +28,17 @@ public class UserDatabaseService
             Email = userViewModel.Email
         };
 
-        await _repository.Add(user);
+        BaseRepository<UserModel> repository = _unitOfWork.Resolve<BaseRepository<UserModel>, UserModel>();
+        await repository.Add(user);
+
+        await _unitOfWork.SaveChangesAsync();
         return true;
     }
 
     public bool HasUser(string email)
     {
-        UserModel? user = _repository.GetAll().FirstOrDefault(x => x.Email == email);
+        BaseRepository<UserModel> repository = _unitOfWork.Resolve<BaseRepository<UserModel>, UserModel>();
+        UserModel? user = repository.GetAll().FirstOrDefault(x => x.Email == email);
 
         return user != null;
     }
