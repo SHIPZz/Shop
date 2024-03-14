@@ -1,11 +1,12 @@
+using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Shop.Commands;
 using Shop.Data;
 using Shop.Profiles;
 using Shop.Services;
+using Shop.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
-// Add services to the container.
-
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -15,6 +16,8 @@ builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 builder.Services.AddScoped<UserDatabaseService>();
 builder.Services.AddScoped<DeviceDatabaseService>();
 builder.Services.AddScoped<UnitOfWork>();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddScoped<IValidator<AddOrderedDeviceModelCommand>, AddDeviceModelCommandValidator>();
 
 builder.Services.AddSingleton<OrderedDeviceDatabaseService>(serviceProvider =>
 {

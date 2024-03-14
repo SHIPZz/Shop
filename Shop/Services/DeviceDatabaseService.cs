@@ -12,7 +12,7 @@ public class DeviceDatabaseService
         _unitOfWork = unitOfWork;
     }
 
-    public IQueryable<DeviceModel> GetAll()
+    public IQueryable<DeviceModel?> GetAll()
     {
         return _unitOfWork.Resolve<BaseRepository<DeviceModel>, DeviceModel>().GetAll();
     }
