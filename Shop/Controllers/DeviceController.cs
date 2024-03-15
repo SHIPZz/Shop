@@ -31,6 +31,11 @@ namespace Shop.Controllers
             AddOrderedDeviceModelCommand deviceModelCommand = _mapper.Map<AddOrderedDeviceModelCommand>(deviceModel);
             await _mediator.Send(deviceModelCommand);
             
+            return RedirectToAction(nameof(Device));
+        }
+
+        public IActionResult Order()
+        {
             return RedirectToAction("OrderDevice", "OrderedDevice");
         }
 

@@ -1,5 +1,35 @@
-﻿@model OrderedDeviceModel
+﻿<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Price</th>
+        <th scope="col">Count</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (OrderedDeviceModel item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.Price</td>
+            <td>
+                <div style="display: flex; align-items: center;">
+                    @using (Html.BeginForm("IncreaseCount", "OrderedDevice"))
+                    {
+                        @Html.Hidden("id", item.Id)
+                        <button type="submit" class="btn btn-sm btn-primary mr-1" style="margin-right: 10px;">+</button>
+                    }
 
-<div>
-    <h3>@Model.Name</h3>
-</div>
+                    <span class="mr-1">@item.Count</span>
+
+                    @using (Html.BeginForm("DecreaseCount", "OrderedDevice"))
+                    {
+                        @Html.Hidden("id", item.Id)
+                        <button type="submit" class="btn btn-sm btn-primary" style="margin-left: 10px;">-</button>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

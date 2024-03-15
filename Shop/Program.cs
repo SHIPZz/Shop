@@ -15,18 +15,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 builder.Services.AddScoped<UserDatabaseService>();
 builder.Services.AddScoped<DeviceDatabaseService>();
+builder.Services.AddScoped<OrderedDeviceDatabaseService>();
 builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddScoped<IValidator<AddOrderedDeviceModelCommand>, AddDeviceModelCommandValidator>();
-
-builder.Services.AddSingleton<OrderedDeviceDatabaseService>(serviceProvider =>
-{
-    var scopedFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
-    using var scope = scopedFactory.CreateScope();
-    var unitOfWork = scope.ServiceProvider.GetRequiredService<UnitOfWork>();
-
-    return new OrderedDeviceDatabaseService(unitOfWork);
-});
 
 var app = builder.Build();
 
