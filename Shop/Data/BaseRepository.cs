@@ -16,7 +16,7 @@ namespace Shop.Data
             _dbSet = _context.Set<T>();
         }
 
-        public IQueryable<T> GetAll()
+        public IEnumerable<T> GetAll()
         {
             return _dbSet;
         }

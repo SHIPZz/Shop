@@ -12,8 +12,8 @@ public class DeviceDatabaseService
         _unitOfWork = unitOfWork;
     }
 
-    public IQueryable<DeviceModel?> GetAll()
+    public List<DeviceModel> GetAll()
     {
-        return _unitOfWork.Resolve<BaseRepository<DeviceModel>, DeviceModel>().GetAll();
+        return _unitOfWork.Resolve<BaseRepository<DeviceModel>, DeviceModel>().GetAll().ToList();
     }
 }

@@ -36,7 +36,7 @@ public class AddDeviceModelHandler : IRequestHandler<AddOrderedDeviceModelComman
 
         var orderedDeviceModel = _mapper.Map<OrderedDeviceModel>(request);
 
-        IQueryable<OrderedDeviceModel?> models = repo.GetAll();
+        var models = repo.GetAll();
 
         if (models.Contains(orderedDeviceModel))
             return models.FirstOrDefault(x => x == orderedDeviceModel);
