@@ -12,16 +12,16 @@ namespace Shop.Services
             _context = context;
         }
 
-        public BaseRepository<TEntity> Resolve<T, TEntity>() where T : BaseRepository<TEntity> where TEntity : class
+        public BaseRepository<TEntity> Resolve<TBaseRepository, TEntity>() where TBaseRepository : BaseRepository<TEntity> where TEntity : class
         {
-            if (!_repositories.ContainsKey(typeof(T)))
+            if (!_repositories.ContainsKey(typeof(TBaseRepository)))
             {
                 var repository = new BaseRepository<TEntity>(_context);
-                _repositories[typeof(T)] = repository;
+                _repositories[typeof(TBaseRepository)] = repository;
                 return repository;
             }
 
-            return (BaseRepository<TEntity>)_repositories[typeof(T)];
+            return (BaseRepository<TEntity>)_repositories[typeof(TBaseRepository)];
         }
 
         public async Task SaveChangesAsync()

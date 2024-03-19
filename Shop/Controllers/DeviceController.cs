@@ -8,15 +8,16 @@ using Shop.Commands;
 
 namespace Shop.Controllers
 {
-    [Route("api/device")]
-    public class DeviceController : Controller
+    [Route("api/devices")]
+    public class DeviceController : ControllerBase
     {
         private readonly DeviceDatabaseService _deviceDatabaseService;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private ILogger<DeviceModel> _logger;
 
-        public DeviceController(IMapper mapper, IMediator mediator, DeviceDatabaseService deviceDatabaseService, ILogger<DeviceModel> logger)
+        public DeviceController(IMapper mapper, IMediator mediator, DeviceDatabaseService deviceDatabaseService,
+            ILogger<DeviceModel> logger)
         {
             _logger = logger;
             _mapper = mapper;
@@ -24,31 +25,24 @@ namespace Shop.Controllers
             _deviceDatabaseService = deviceDatabaseService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Device([FromBody] string selectedDevice)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            _logger.LogInformation("Device controller: Device method called with selectedDevice: {selectedDevice}", selectedDevice);
-
-            if (string.IsNullOrEmpty(selectedDevice))
-            {
-                _logger.LogWarning("Device controller: Selected device is null or empty.");
-                return BadRequest("Selected device cannot be null or empty.");
-            }
-
             try
             {
-                var deviceModel =  _deviceDatabaseService.GetAll().FirstOrDefault(x => x.Name == selectedDevice);
+                var deviceModel = _deviceDatabaseService.GetAll().Find(x => x.Id == id);
 
+                _logger.LogError($"{id} + {deviceModel}");
+        
                 if (deviceModel == null)
                 {
                     _logger.LogWarning("Device controller: Device not found.");
                     return NotFound("Device not found.");
                 }
-
+        
                 AddOrderedDeviceModelCommand deviceModelCommand = _mapper.Map<AddOrderedDeviceModelCommand>(deviceModel);
                 await _mediator.Send(deviceModelCommand);
-                _logger.LogInformation("Device controller: Device added to cart successfully.");
-                return Ok("Device added to cart successfully.");
+                return Ok($"Device is found succesfully: {deviceModel}");
             }
             catch (Exception ex)
             {
@@ -57,15 +51,23 @@ namespace Shop.Controllers
             }
         }
 
-        public IActionResult Order()
+        [HttpGet("search")]
+        public IActionResult SearchByQuery(string query)
         {
-            return RedirectToAction("OrderDevice", "OrderedDevice");
+            var device = _deviceDatabaseService.GetAll()
+                .Find(x => x.Name == query);
+
+            if (device == null)
+            {
+                return NotFound("There is no device");
+            }
+
+            return Ok(device);
         }
 
+
         [HttpGet]
-        public IActionResult Device()
-        {
-            return View(_deviceDatabaseService.GetAll().ToList());
-        }
+        public IActionResult GetAllDevices() =>
+            Ok(_deviceDatabaseService.GetAll());
     }
 }

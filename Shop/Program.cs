@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(AppMappingProfile));
 builder.Services.AddScoped<UserDatabaseService>();
 builder.Services.AddScoped<DeviceDatabaseService>();
 builder.Services.AddScoped<OrderedDeviceDatabaseService>();
+builder.Services.AddScoped<ShoppingCartDatabaseService>();
 builder.Services.AddScoped<UnitOfWork>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddScoped<IValidator<AddOrderedDeviceModelCommand>, AddDeviceModelCommandValidator>();
@@ -40,6 +41,8 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Device}/{action=Device}/{id?}");
+    pattern: "{controller=Device}/{action=GetById}/{id?}");
 
 app.Run();
+
+app.UseEndpoints(endpoints => endpoints.MapControllers());

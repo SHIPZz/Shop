@@ -23,7 +23,7 @@ public class AddDeviceModelHandler : IRequestHandler<AddOrderedDeviceModelComman
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<OrderedDeviceModel?> Handle(AddOrderedDeviceModelCommand request, CancellationToken cancellationToken)
+    public async Task<OrderedDeviceModel> Handle(AddOrderedDeviceModelCommand request, CancellationToken cancellationToken)
     {
         ValidationResult? validationResult = await _validator.ValidateAsync(request, cancellationToken);
 
@@ -32,7 +32,7 @@ public class AddDeviceModelHandler : IRequestHandler<AddOrderedDeviceModelComman
             throw new ValidationException(validationResult.Errors);
         }
         
-        BaseRepository<OrderedDeviceModel?> repo = _unitOfWork.Resolve<BaseRepository<OrderedDeviceModel>, OrderedDeviceModel>();
+        BaseRepository<OrderedDeviceModel> repo = _unitOfWork.Resolve<BaseRepository<OrderedDeviceModel>, OrderedDeviceModel>();
 
         var orderedDeviceModel = _mapper.Map<OrderedDeviceModel>(request);
 

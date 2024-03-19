@@ -57,19 +57,31 @@ namespace Shop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Count")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
                     b.ToTable("OrderedDevices");
+                });
+
+            modelBuilder.Entity("Shop.Models.ShoppingCartModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DeviceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ShoppingCart");
                 });
 
             modelBuilder.Entity("Shop.Models.UserModel", b =>

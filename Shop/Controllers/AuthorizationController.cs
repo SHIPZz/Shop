@@ -30,6 +30,6 @@ public class AuthorizationController : Controller
         }
 
         ViewBag.HasUser = true;
-        return RedirectToAction("Device", "Device");
+        return RedirectToAction("GetById", "Device");
     }
 }

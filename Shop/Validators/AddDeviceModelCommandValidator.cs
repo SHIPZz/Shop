@@ -7,8 +7,8 @@ public class AddDeviceModelCommandValidator : AbstractValidator<AddOrderedDevice
 {
     public AddDeviceModelCommandValidator()
     {
-        RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
-        RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than zero.");
-        RuleFor(x => x.Count).GreaterThan(0).WithMessage("Count must be greater than zero.");
+        // RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.");
+        // RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than zero.");
+        // RuleFor(x => x.Count).GreaterThan(0).WithMessage("Count must be greater than zero.");
     }
 }
