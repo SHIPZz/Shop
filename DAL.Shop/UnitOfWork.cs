@@ -1,4 +1,4 @@
-﻿using Shop.Data;
+﻿using DAL.Shop;
 
 namespace Shop.Services
 {

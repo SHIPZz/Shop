@@ -1,7 +1,5 @@
-using FluentValidation;
+using DAL.Shop;
 using Microsoft.EntityFrameworkCore;
-using Shop.Commands;
-using Shop.Data;
 using Shop.Profiles;
 using Shop.Services;
 

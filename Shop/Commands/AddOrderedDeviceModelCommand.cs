@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Shop.Models;
+﻿using Domain.Shop.Entity;
+using MediatR;
 
 namespace Shop.Commands;
 

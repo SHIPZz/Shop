@@ -1,5 +1,5 @@
-﻿using Shop.Data;
-using Shop.Models;
+﻿using DAL.Shop;
+using Domain.Shop.Entity;
 
 namespace Shop.Services;
 

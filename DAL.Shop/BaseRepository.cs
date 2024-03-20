@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Shop.Data
+namespace DAL.Shop
 {
     public class BaseRepository<T> : IRepository<T> where T : class
     {

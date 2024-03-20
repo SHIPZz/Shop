@@ -1,5 +1,5 @@
+using Domain.Shop.Entity;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Models;
 using Shop.Services;
 
 namespace Shop.Controllers;

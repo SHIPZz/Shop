@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Domain.Shop.Entity;
 using Shop.Commands;
-using Shop.Models;
 
 namespace Shop.Profiles;
 

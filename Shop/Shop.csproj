@@ -23,4 +23,9 @@
       <None Include="wwwroot\Images\Devices\iphone 11.png" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\DAL.Shop\DAL.Shop.csproj" />
+      <ProjectReference Include="..\Domain.Shop\Domain.Shop.csproj" />
+    </ItemGroup>
+
 </Project>

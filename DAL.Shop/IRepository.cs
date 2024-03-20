@@ -1,6 +1,5 @@
-using Shop.Models;
 
-namespace Shop.Data;
+namespace DAL.Shop;
 
 public interface IRepository<T>
 {

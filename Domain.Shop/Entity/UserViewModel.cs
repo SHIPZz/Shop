@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Shop.Models;
+namespace Domain.Shop.Entity;
 
 public class UserViewModel
 {

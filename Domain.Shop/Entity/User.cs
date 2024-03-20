@@ -1,4 +1,4 @@
-﻿namespace Shop.Models;
+﻿namespace Domain.Shop.Entity;
 
 public class User
 {

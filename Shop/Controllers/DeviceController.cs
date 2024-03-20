@@ -1,9 +1,8 @@
 using AutoMapper;
+using Domain.Shop.Entity;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Models;
 using Shop.Services;
-using Microsoft.EntityFrameworkCore;
 using Shop.Commands;
 
 namespace Shop.Controllers
