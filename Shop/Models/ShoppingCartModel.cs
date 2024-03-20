@@ -6,4 +6,7 @@ public class ShoppingCartModel
     public int UserId { get; set; }
     
     public int DeviceId { get; set; }
+    
+    public int DeviceCount { get; set; }
+    
 }

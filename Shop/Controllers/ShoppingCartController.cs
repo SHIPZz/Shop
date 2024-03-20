@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Models;
 using Shop.Services;
 
 namespace Shop.Controllers;
@@ -16,21 +17,18 @@ public class ShoppingCartController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Add([FromQuery] int deviceId, [FromQuery] int userId)
     {
-        var isAdded = await _shoppingCartDatabaseService.Add(deviceId, userId);
+        await _shoppingCartDatabaseService.Add(deviceId, userId);
 
-        if (!isAdded)
-            return NotFound("cart not found");
-
-        return Ok($"{deviceId} added");
+        return Ok($"{deviceId} + {_shoppingCartDatabaseService.GetByUserId(userId).Count} added");
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Remove([FromQuery] int deviceId, [FromQuery] int userId)
+    public async Task<IActionResult> Remove([FromQuery] int deviceId, [FromQuery] int userId, [FromQuery] int count)
     {
-        var isRemoved = await _shoppingCartDatabaseService.Remove(deviceId, userId);
-        
+        var isRemoved = await _shoppingCartDatabaseService.Remove(deviceId, userId, count);
+
         if (!isRemoved)
-            return NotFound("cart not found");
+            return NotFound("couldn't remove");
 
         return Ok($"{deviceId} removed");
     }
@@ -42,7 +40,7 @@ public class ShoppingCartController : ControllerBase
 
         if (cart == null)
             return NotFound("list is empty");
-        
+
         return Ok(cart);
     }
 }

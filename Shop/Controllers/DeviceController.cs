@@ -25,6 +25,14 @@ namespace Shop.Controllers
             _deviceDatabaseService = deviceDatabaseService;
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Add([FromQuery] DeviceModel deviceModel)
+        {
+            await _deviceDatabaseService.Add(deviceModel);
+
+            return Ok(deviceModel);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -33,14 +41,15 @@ namespace Shop.Controllers
                 var deviceModel = _deviceDatabaseService.GetAll().Find(x => x.Id == id);
 
                 _logger.LogError($"{id} + {deviceModel}");
-        
+
                 if (deviceModel == null)
                 {
                     _logger.LogWarning("Device controller: Device not found.");
                     return NotFound("Device not found.");
                 }
-        
-                AddOrderedDeviceModelCommand deviceModelCommand = _mapper.Map<AddOrderedDeviceModelCommand>(deviceModel);
+
+                AddOrderedDeviceModelCommand deviceModelCommand =
+                    _mapper.Map<AddOrderedDeviceModelCommand>(deviceModel);
                 await _mediator.Send(deviceModelCommand);
                 return Ok($"Device is found succesfully: {deviceModel}");
             }

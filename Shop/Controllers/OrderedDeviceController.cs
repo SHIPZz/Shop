@@ -17,8 +17,14 @@ namespace Shop.Controllers
         [HttpPost("{userId}")]
         public async Task<IActionResult> Create(int userId)
         {
-            OrderedDeviceModel? model = await _orderedDeviceDatabaseService.TryCreate(userId);
-            return Ok(model);
+            var isCreated = await _orderedDeviceDatabaseService.TryCreate(userId);
+
+            if (!isCreated)
+            {
+                return NotFound("Not created");
+            }
+            
+            return Ok($"{_orderedDeviceDatabaseService.OrderedDeviceModel.Name} created");
         }
     }
 }

@@ -7,45 +7,81 @@ public class ShoppingCartDatabaseService
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly BaseRepository<ShoppingCartModel> _repository;
+    private ILogger<ICollection<DeviceModel>> _logger;
 
-    public ShoppingCartDatabaseService(UnitOfWork unitOfWork)
+    public ShoppingCartDatabaseService(UnitOfWork unitOfWork, ILogger<ICollection<DeviceModel>> logger)
     {
         _unitOfWork = unitOfWork;
+        _logger = logger;
         _repository = _unitOfWork.Resolve<BaseRepository<ShoppingCartModel>, ShoppingCartModel>();
     }
 
-    public async Task<bool> Remove(int deviceId, int userId)
+    public async Task<bool> Remove(int deviceId, int userId, int count)
     {
-        var cart = _repository.GetAll().FirstOrDefault(x => x.DeviceId == deviceId && x.UserId == userId);
+        var carts = _repository
+            .GetAll()
+            .Where(x => x.UserId == userId && x.DeviceId == deviceId)
+            .ToList();
 
-        if (cart == null)
-        {
-            return false;   
-        }
-        
-        await _repository.Remove(cart);
-        await _unitOfWork.SaveChangesAsync();
-        return true;
-    }
-
-    public ShoppingCartModel? GetByUserId(int userId)
-    {
-        var repo = _unitOfWork.Resolve<BaseRepository<ShoppingCartModel>, ShoppingCartModel>();
-        var cart = repo.GetAll().FirstOrDefault(x => x.UserId == userId);
-        return cart;
-    }
-
-    public async Task<bool> Add(int deviceId, int userId)
-    {
-        var cart = _repository.GetAll().FirstOrDefault(x => x.DeviceId == deviceId && x.UserId == userId);
-
-        if (cart == null)
+        if (!carts.Any())
         {
             return false;
         }
-        
-        await _repository.Add(cart);
+
+        foreach (ShoppingCartModel shoppingCartModel in carts)
+        {
+            shoppingCartModel.DeviceCount -= count;
+
+            if (shoppingCartModel.DeviceCount <= 0)
+            {
+                await _repository.Remove(shoppingCartModel);
+                continue;
+            }
+
+            await _repository.Update(shoppingCartModel);
+        }
+
         await _unitOfWork.SaveChangesAsync();
         return true;
+    }
+
+    public List<ShoppingCartModel>? GetByUserId(int userId)
+    {
+        return _repository.GetAll().Where(x => x.UserId == userId).ToList();
+    }
+
+    public int GetDeviceCountById(int userId, int deviceId)
+    {
+        return _repository.GetAll()
+            .FirstOrDefault(x => x.UserId == userId && x.DeviceId == deviceId)
+            .DeviceCount;
+    }
+
+    public async Task Add(int deviceId, int userId)
+    {
+        var carts = _repository
+            .GetAll()
+            .Where(x => x.UserId == userId && x.DeviceId == deviceId)
+            .ToList();
+
+        if (!carts.Any())
+        {
+            var cart = new ShoppingCartModel()
+            {
+                DeviceId = deviceId,
+                UserId = userId,
+                DeviceCount = 1,
+            };
+
+            await _repository.Add(cart);
+            await _unitOfWork.SaveChangesAsync();
+            return;
+        }
+
+        foreach (ShoppingCartModel shoppingCartModel in carts)
+        {
+            shoppingCartModel.DeviceCount++;
+            await _repository.Update(shoppingCartModel);
+        }
     }
 }

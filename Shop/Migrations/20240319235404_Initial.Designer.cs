@@ -12,7 +12,7 @@ using Shop.Data;
 namespace Shop.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240319022806_Initial")]
+    [Migration("20240319235404_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -75,6 +75,9 @@ namespace Shop.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DeviceCount")
+                        .HasColumnType("int");
 
                     b.Property<int>("DeviceId")
                         .HasColumnType("int");
