@@ -9,9 +9,9 @@ public class OrderedDeviceDatabaseService
     private readonly UnitOfWork _unitOfWork;
     private readonly BaseRepository<OrderedDeviceModel> _repository;
     private readonly ShoppingCartDatabaseService _shoppingCartDatabaseService;
-    private DeviceDatabaseService _deviceDatabaseService;
+    private readonly DeviceDatabaseService _deviceDatabaseService;
 
-    private IMapper _mapper;
+    private readonly IMapper _mapper;
     
     public OrderedDeviceModel OrderedDeviceModel { get; private set; }
 
@@ -31,6 +31,11 @@ public class OrderedDeviceDatabaseService
     public IEnumerable<OrderedDeviceModel> GetAll()
     {
         return _repository.GetAll();
+    }
+    
+    public IEnumerable<OrderedDeviceModel> GetAll(int userId)
+    {
+        return _repository.GetAll().Where(x=>x.UserId == userId);
     }
 
     public async Task Update(OrderedDeviceModel device)
@@ -63,5 +68,19 @@ public class OrderedDeviceDatabaseService
         
         await _unitOfWork.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<bool> SetPurchased(int orderId)
+    {
+      OrderedDeviceModel? orderedDeviceModel =  _repository.GetAll().FirstOrDefault(x => x.Id == orderId);
+
+      if (orderedDeviceModel == null)
+          return false;
+      
+      orderedDeviceModel.IsPurchased = true;
+      OrderedDeviceModel = orderedDeviceModel;
+      await _repository.Update(orderedDeviceModel);
+      await _unitOfWork.SaveChangesAsync();
+      return true;
     }
 }

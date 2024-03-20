@@ -14,6 +14,23 @@ namespace Shop.Controllers
             _orderedDeviceDatabaseService = orderedDeviceDatabaseService;
         }
 
+        [HttpPut("{orderId}")]
+        public async Task<IActionResult> Pay(int orderId)
+        {
+          var isSet =  await _orderedDeviceDatabaseService.SetPurchased(orderId);
+
+          if (!isSet)
+              return NotFound("is purchased not set");
+
+          return Ok($"{_orderedDeviceDatabaseService.OrderedDeviceModel.Name} is purchased");
+        }
+
+        [HttpGet("{userId}")]
+        public IActionResult GetAllOrderedDevices(int userId)
+        {
+           return Ok(_orderedDeviceDatabaseService.GetAll(userId));
+        }
+
         [HttpPost("{userId}")]
         public async Task<IActionResult> Create(int userId)
         {
