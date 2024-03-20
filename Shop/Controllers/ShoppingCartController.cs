@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Application.Shop.Services;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Services;
 
 namespace Shop.Controllers;

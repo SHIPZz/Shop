@@ -1,81 +1,81 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model Domain.Shop.Entity.UserViewModel
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-@if (ViewBag.IsRegistrationSucceded != null && ViewBag.IsRegistrationSucceded == false)
-{
-    <script>
-        Swal.fire({
-            icon: "error",
-            title: "Упс...",
-            text: "Что-то пошло не так!",
-        });
-    </script>
-}
-else if (ViewBag.IsRegistrationSucceded != null && ViewBag.IsRegistrationSucceded)
-{
-    <script>
-    
-    const disableTime = 3500;
-    
-    Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Вы успешно зарегистрировались",
-        showConfirmButton: false,
-        timer: disableTime
-    });
-    </script>
-}
-
-<div class="d-flex justify-content-center">
-    <div>
-        <form asp-controller="Registration" asp-action="Register" method="post">
-            <div class="input-group mb-3">
-                <span class="input-group-text" style="width: 150px;">Имя:</span>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingName"
-                           asp-for="Username" autocomplete="off"
-                           value="@Model.Username" placeholder="Username...">
-
-                    <label for="floatingName">Username</label>
-                </div>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" style="width: 150px;">Пароль:</span>
-                <div class="form-floating">
-                    <input type="password" class="form-control"
-                           id="floatingPassword" asp-for="Password"
-                           placeholder="Password..."
-                           value="@Model.Password">
-
-                    <label for="floatingPassword">Password</label>
-                </div>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" style="width: 150px;">Email:</span>
-                <div class="form-floating">
-                    <input type="email" class="form-control"
-                           id="floatingEmail" asp-for="Email"
-                           placeholder="Password..."
-                           value="@Model.Email">
-
-                    <label for="floatingEmail">Email</label>
-                </div>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text" style="width: 150px;">Дата рождения:</span>
-                <div class="form-floating">
-                    <input type="date" class="form-control" id="floatingDateOfBirth" asp-for="Birthday"
-                           max="@DateTime.Now.AddYears(-18).ToString("yyyy-MM")"
-                           min="@DateTime.Now.AddYears(-90).ToString("yyyy-MM")"
-                           value=@Model.Birthday>
-
-                    <label for="floatingDateOfBirth">Date of Birth</label>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg d-block mx-auto w-65">Зарегистрироваться</button>
-        </form>
-    </div>
-</div>
+@* @using Microsoft.AspNetCore.Mvc.TagHelpers *@
+@* @model Domain.Shop.Entity.UserViewModel *@
+@* *@
+@* <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> *@
+@* *@
+@* @if (ViewBag.IsRegistrationSucceded != null && ViewBag.IsRegistrationSucceded == false) *@
+@* { *@
+@*     <script> *@
+@*         Swal.fire({ *@
+@*             icon: "error", *@
+@*             title: "Упс...", *@
+@*             text: "Что-то пошло не так!", *@
+@*         }); *@
+@*     </script> *@
+@* } *@
+@* else if (ViewBag.IsRegistrationSucceded != null && ViewBag.IsRegistrationSucceded) *@
+@* { *@
+@*     <script> *@
+@*      *@
+@*     const disableTime = 3500; *@
+@*      *@
+@*     Swal.fire({ *@
+@*         position: "center", *@
+@*         icon: "success", *@
+@*         title: "Вы успешно зарегистрировались", *@
+@*         showConfirmButton: false, *@
+@*         timer: disableTime *@
+@*     }); *@
+@*     </script> *@
+@* } *@
+@* *@
+@* <div class="d-flex justify-content-center"> *@
+@*     <div> *@
+@*         <form asp-controller="Registration" asp-action="Register" method="post"> *@
+@*             <div class="input-group mb-3"> *@
+@*                 <span class="input-group-text" style="width: 150px;">Имя:</span> *@
+@*                 <div class="form-floating"> *@
+@*                     <input type="text" class="form-control" id="floatingName" *@
+@*                            asp-for="Username" autocomplete="off" *@
+@*                            value="@Model.Username" placeholder="Username..."> *@
+@* *@
+@*                     <label for="floatingName">Username</label> *@
+@*                 </div> *@
+@*             </div> *@
+@*             <div class="input-group mb-3"> *@
+@*                 <span class="input-group-text" style="width: 150px;">Пароль:</span> *@
+@*                 <div class="form-floating"> *@
+@*                     <input type="password" class="form-control" *@
+@*                            id="floatingPassword" asp-for="Password" *@
+@*                            placeholder="Password..." *@
+@*                            value="@Model.Password"> *@
+@* *@
+@*                     <label for="floatingPassword">Password</label> *@
+@*                 </div> *@
+@*             </div> *@
+@*             <div class="input-group mb-3"> *@
+@*                 <span class="input-group-text" style="width: 150px;">Email:</span> *@
+@*                 <div class="form-floating"> *@
+@*                     <input type="email" class="form-control" *@
+@*                            id="floatingEmail" asp-for="Email" *@
+@*                            placeholder="Password..." *@
+@*                            value="@Model.Email"> *@
+@* *@
+@*                     <label for="floatingEmail">Email</label> *@
+@*                 </div> *@
+@*             </div> *@
+@*             <div class="input-group mb-3"> *@
+@*                 <span class="input-group-text" style="width: 150px;">Дата рождения:</span> *@
+@*                 <div class="form-floating"> *@
+@*                     <input type="date" class="form-control" id="floatingDateOfBirth" asp-for="Birthday" *@
+@*                            max="@DateTime.Now.AddYears(-18).ToString("yyyy-MM")" *@
+@*                            min="@DateTime.Now.AddYears(-90).ToString("yyyy-MM")" *@
+@*                            value=@Model.Birthday> *@
+@* *@
+@*                     <label for="floatingDateOfBirth">Date of Birth</label> *@
+@*                 </div> *@
+@*             </div> *@
+@*             <button type="submit" class="btn btn-primary btn-lg d-block mx-auto w-65">Зарегистрироваться</button> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@

@@ -1,3 +1,4 @@
+using Application.Shop.Services;
 using DAL.Shop;
 using Microsoft.EntityFrameworkCore;
 using Shop.Profiles;
@@ -10,7 +11,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
 
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
-builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<DeviceService>();
 builder.Services.AddScoped<OrderedDeviceService>();
 builder.Services.AddScoped<ShoppingCartService>();

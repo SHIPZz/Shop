@@ -1,3 +1,4 @@
+using Application.Shop.Services;
 using AutoMapper;
 using Domain.Shop.Entity;
 using MediatR;

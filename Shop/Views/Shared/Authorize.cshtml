@@ -1,33 +1,33 @@
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model Domain.Shop.Entity.UserViewModel
-
-@if (ViewBag.HasUser != null && !ViewBag.HasUser)
-{
-    <div class="alert alert-danger" role="alert">
-        Данные неверные. Пожалуйста, проверьте их и попробуйте снова.
-    </div>
-}
-
-<div class="d-flex justify-content-center">
-    <div>
-        <form asp-controller="Authorization" asp-action="Authorize" method="post" > 
-            <div class="mb-3">
-                <label for="emailInput" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="emailInput" asp-for="Email" aria-describedby="emailHelp">
-                <div id="emailHelp" class="form-text">Мы никому не расскажем о твоей почте!</div>
-            </div>
-            
-            <div class="mb-3">
-                <label for="passwordInput" class="form-label">Пароль:</label>
-                <input type="password" class="form-control" asp-for="Password" id="passwordInput">
-            </div>
-            
-            <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="checkOut">
-                <label class="form-check-label"  for="checkOut">Запомнить меня</label>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</div>
+@* @using Microsoft.AspNetCore.Mvc.TagHelpers *@
+@* @model Domain.Shop.Entity.UserViewModel *@
+@* *@
+@* @if (ViewBag.HasUser != null && !ViewBag.HasUser) *@
+@* { *@
+@*     <div class="alert alert-danger" role="alert"> *@
+@*         Данные неверные. Пожалуйста, проверьте их и попробуйте снова. *@
+@*     </div> *@
+@* } *@
+@* *@
+@* <div class="d-flex justify-content-center"> *@
+@*     <div> *@
+@*         <form asp-controller="Authorization" asp-action="Authorize" method="post" >  *@
+@*             <div class="mb-3"> *@
+@*                 <label for="emailInput" class="form-label">Email:</label> *@
+@*                 <input type="email" class="form-control" id="emailInput" asp-for="Email" aria-describedby="emailHelp"> *@
+@*                 <div id="emailHelp" class="form-text">Мы никому не расскажем о твоей почте!</div> *@
+@*             </div> *@
+@*              *@
+@*             <div class="mb-3"> *@
+@*                 <label for="passwordInput" class="form-label">Пароль:</label> *@
+@*                 <input type="password" class="form-control" asp-for="Password" id="passwordInput"> *@
+@*             </div> *@
+@*              *@
+@*             <div class="mb-3 form-check"> *@
+@*                 <input type="checkbox" class="form-check-input" id="checkOut"> *@
+@*                 <label class="form-check-label"  for="checkOut">Запомнить меня</label> *@
+@*             </div> *@
+@*              *@
+@*             <button type="submit" class="btn btn-primary">Submit</button> *@
+@*         </form> *@
+@*     </div> *@
+@* </div> *@

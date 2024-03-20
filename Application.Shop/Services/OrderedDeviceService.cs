@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
 using DAL.Shop;
 using Domain.Shop.Entity;
+using Shop.Services;
 
-namespace Shop.Services;
+namespace Application.Shop.Services;
 
 public class OrderedDeviceService
 {

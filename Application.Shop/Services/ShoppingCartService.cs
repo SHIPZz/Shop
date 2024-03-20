@@ -1,7 +1,9 @@
 ﻿using DAL.Shop;
 using Domain.Shop.Entity;
+using Microsoft.Extensions.Logging;
+using Shop.Services;
 
-namespace Shop.Services;
+namespace Application.Shop.Services;
 
 public class ShoppingCartService
 {
