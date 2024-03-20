@@ -3,13 +3,13 @@ using Shop.Models;
 
 namespace Shop.Services;
 
-public class ShoppingCartDatabaseService
+public class ShoppingCartService
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly BaseRepository<ShoppingCartModel> _repository;
     private ILogger<ICollection<DeviceModel>> _logger;
 
-    public ShoppingCartDatabaseService(UnitOfWork unitOfWork, ILogger<ICollection<DeviceModel>> logger)
+    public ShoppingCartService(UnitOfWork unitOfWork, ILogger<ICollection<DeviceModel>> logger)
     {
         _unitOfWork = unitOfWork;
         _logger = logger;

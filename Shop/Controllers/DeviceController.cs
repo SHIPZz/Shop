@@ -11,24 +11,24 @@ namespace Shop.Controllers
     [Route("api/devices")]
     public class DeviceController : ControllerBase
     {
-        private readonly DeviceDatabaseService _deviceDatabaseService;
+        private readonly DeviceService _deviceService;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private ILogger<DeviceModel> _logger;
 
-        public DeviceController(IMapper mapper, IMediator mediator, DeviceDatabaseService deviceDatabaseService,
+        public DeviceController(IMapper mapper, IMediator mediator, DeviceService deviceService,
             ILogger<DeviceModel> logger)
         {
             _logger = logger;
             _mapper = mapper;
             _mediator = mediator;
-            _deviceDatabaseService = deviceDatabaseService;
+            _deviceService = deviceService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Add([FromQuery] DeviceModel deviceModel)
         {
-            await _deviceDatabaseService.Add(deviceModel);
+            await _deviceService.Add(deviceModel);
 
             return Ok(deviceModel);
         }
@@ -38,7 +38,7 @@ namespace Shop.Controllers
         {
             try
             {
-                var deviceModel = _deviceDatabaseService.GetAll().Find(x => x.Id == id);
+                var deviceModel = _deviceService.GetAll().Find(x => x.Id == id);
 
                 _logger.LogError($"{id} + {deviceModel}");
 
@@ -63,7 +63,7 @@ namespace Shop.Controllers
         [HttpGet("search")]
         public IActionResult SearchByQuery(string query)
         {
-            var device = _deviceDatabaseService.GetAll()
+            var device = _deviceService.GetAll()
                 .Find(x => x.Name == query);
 
             if (device == null)
@@ -77,6 +77,6 @@ namespace Shop.Controllers
 
         [HttpGet]
         public IActionResult GetAllDevices() =>
-            Ok(_deviceDatabaseService.GetAll());
+            Ok(_deviceService.GetAll());
     }
 }

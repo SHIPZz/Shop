@@ -3,12 +3,12 @@ using Shop.Models;
 
 namespace Shop.Services;
 
-public class DeviceDatabaseService
+public class DeviceService
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly BaseRepository<DeviceModel> _repository;
 
-    public DeviceDatabaseService(UnitOfWork unitOfWork)
+    public DeviceService(UnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
         _repository = _unitOfWork.Resolve<BaseRepository<DeviceModel>, DeviceModel>();

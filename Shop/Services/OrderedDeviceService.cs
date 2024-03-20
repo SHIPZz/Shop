@@ -4,22 +4,22 @@ using Shop.Models;
 
 namespace Shop.Services;
 
-public class OrderedDeviceDatabaseService
+public class OrderedDeviceService
 {
     private readonly UnitOfWork _unitOfWork;
     private readonly BaseRepository<OrderedDeviceModel> _repository;
-    private readonly ShoppingCartDatabaseService _shoppingCartDatabaseService;
-    private readonly DeviceDatabaseService _deviceDatabaseService;
+    private readonly ShoppingCartService _shoppingCartService;
+    private readonly DeviceService _deviceService;
 
     private readonly IMapper _mapper;
     
     public OrderedDeviceModel OrderedDeviceModel { get; private set; }
 
-    public OrderedDeviceDatabaseService(UnitOfWork unitOfWork, ShoppingCartDatabaseService shoppingCartDatabaseService,
-        IMapper mapper, DeviceDatabaseService deviceDatabaseService)
+    public OrderedDeviceService(UnitOfWork unitOfWork, ShoppingCartService shoppingCartService,
+        IMapper mapper, DeviceService deviceService)
     {
-        _deviceDatabaseService = deviceDatabaseService;
-        _shoppingCartDatabaseService = shoppingCartDatabaseService;
+        _deviceService = deviceService;
+        _shoppingCartService = shoppingCartService;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _repository = _unitOfWork.Resolve<BaseRepository<OrderedDeviceModel>, OrderedDeviceModel>();
@@ -45,16 +45,16 @@ public class OrderedDeviceDatabaseService
 
     public async Task<bool> TryCreate(int userId)
     {
-        var carts = _shoppingCartDatabaseService.GetByUserId(userId);
+        var carts = _shoppingCartService.GetByUserId(userId);
 
         if (carts.Count == 0)
             return false;
         
         foreach (ShoppingCartModel shoppingCartModel in carts)
         {
-            DeviceModel deviceModel = _deviceDatabaseService.GetById(shoppingCartModel.DeviceId);
+            DeviceModel deviceModel = _deviceService.GetById(shoppingCartModel.DeviceId);
             var orderedDevice = _mapper.Map<OrderedDeviceModel>(deviceModel);
-            orderedDevice.Count = _shoppingCartDatabaseService.GetDeviceCountById(userId, deviceModel.Id);
+            orderedDevice.Count = _shoppingCartService.GetDeviceCountById(userId, deviceModel.Id);
             orderedDevice.UserId = userId;
             OrderedDeviceModel = orderedDevice;
 

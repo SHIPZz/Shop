@@ -7,25 +7,25 @@ namespace Shop.Controllers;
 [Route("api/cart")]
 public class ShoppingCartController : ControllerBase
 {
-    private readonly ShoppingCartDatabaseService _shoppingCartDatabaseService;
+    private readonly ShoppingCartService _shoppingCartService;
 
-    public ShoppingCartController(ShoppingCartDatabaseService shoppingCartDatabaseService)
+    public ShoppingCartController(ShoppingCartService shoppingCartService)
     {
-        _shoppingCartDatabaseService = shoppingCartDatabaseService;
+        _shoppingCartService = shoppingCartService;
     }
 
     [HttpPost]
     public async Task<IActionResult> Add([FromQuery] int deviceId, [FromQuery] int userId)
     {
-        await _shoppingCartDatabaseService.Add(deviceId, userId);
+        await _shoppingCartService.Add(deviceId, userId);
 
-        return Ok($"{deviceId} + {_shoppingCartDatabaseService.GetByUserId(userId).Count} added");
+        return Ok($"{deviceId} + {_shoppingCartService.GetByUserId(userId).Count} added");
     }
 
     [HttpDelete]
     public async Task<IActionResult> Remove([FromQuery] int deviceId, [FromQuery] int userId, [FromQuery] int count)
     {
-        var isRemoved = await _shoppingCartDatabaseService.Remove(deviceId, userId, count);
+        var isRemoved = await _shoppingCartService.Remove(deviceId, userId, count);
 
         if (!isRemoved)
             return NotFound("couldn't remove");
@@ -36,7 +36,7 @@ public class ShoppingCartController : ControllerBase
     [HttpGet("{userId}")]
     public IActionResult GetByUserId(int userId)
     {
-        var cart = _shoppingCartDatabaseService.GetByUserId(userId);
+        var cart = _shoppingCartService.GetByUserId(userId);
 
         if (cart == null)
             return NotFound("list is empty");

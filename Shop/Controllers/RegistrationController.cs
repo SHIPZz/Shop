@@ -6,11 +6,11 @@ namespace Shop.Controllers;
 
 public class RegistrationController : Controller
 {
-    private readonly UserDatabaseService _userDatabaseService;
+    private readonly UserService _userService;
 
-    public RegistrationController(UserDatabaseService userDatabaseService)
+    public RegistrationController(UserService userService)
     {
-        _userDatabaseService = userDatabaseService;
+        _userService = userService;
     }
 
     public IActionResult Register()
@@ -21,7 +21,7 @@ public class RegistrationController : Controller
     [HttpPost]
     public async Task<IActionResult> Register(UserViewModel userViewModel)
     {
-        var isUserCreated = await _userDatabaseService.TryCreate(userViewModel);
+        var isUserCreated = await _userService.TryCreate(userViewModel);
         
         if (!isUserCreated)
         {

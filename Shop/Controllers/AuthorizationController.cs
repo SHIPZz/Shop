@@ -6,11 +6,11 @@ namespace Shop.Controllers;
 
 public class AuthorizationController : Controller
 {
-    private readonly UserDatabaseService _userDatabaseService;
+    private readonly UserService _userService;
 
-    public AuthorizationController(UserDatabaseService userDatabaseService)
+    public AuthorizationController(UserService userService)
     {
-        _userDatabaseService = userDatabaseService;
+        _userService = userService;
     }
 
     public IActionResult Authorize()
@@ -21,7 +21,7 @@ public class AuthorizationController : Controller
     [HttpPost]
     public IActionResult Authorize(UserViewModel userViewModel)
     {
-        var hasUser = _userDatabaseService.HasUser(userViewModel.Email);
+        var hasUser = _userService.HasUser(userViewModel.Email);
 
         if (!hasUser)
         {

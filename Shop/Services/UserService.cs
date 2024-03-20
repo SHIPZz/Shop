@@ -3,11 +3,11 @@ using Shop.Models;
 
 namespace Shop.Services;
 
-public class UserDatabaseService
+public class UserService
 {
     private readonly UnitOfWork _unitOfWork;
 
-    public UserDatabaseService(UnitOfWork unitOfWork)
+    public UserService(UnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }

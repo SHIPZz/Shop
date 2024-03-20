@@ -4,7 +4,6 @@ using Shop.Commands;
 using Shop.Data;
 using Shop.Profiles;
 using Shop.Services;
-using Shop.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,13 +12,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQL")));
 
 builder.Services.AddAutoMapper(typeof(AppMappingProfile));
-builder.Services.AddScoped<UserDatabaseService>();
-builder.Services.AddScoped<DeviceDatabaseService>();
-builder.Services.AddScoped<OrderedDeviceDatabaseService>();
-builder.Services.AddScoped<ShoppingCartDatabaseService>();
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<DeviceService>();
+builder.Services.AddScoped<OrderedDeviceService>();
+builder.Services.AddScoped<ShoppingCartService>();
 builder.Services.AddScoped<UnitOfWork>();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
-builder.Services.AddScoped<IValidator<AddOrderedDeviceModelCommand>, AddDeviceModelCommandValidator>();
 
 var app = builder.Build();
 
